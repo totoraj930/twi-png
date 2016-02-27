@@ -58,7 +58,8 @@ function isSupport () {
 }
 function convertImageData (imageData) {
 	if (imageData == undefined) return false;
-	imageData.data[3] = 252;
+	if (imageData.data[3] > 252)
+		imageData.data[3] = 252;
 	return imageData;
 }
 function isImageFile(file){
