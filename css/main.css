@@ -1,0 +1,252 @@
+/* note 初期化処理 */
+*{
+	margin: 0;
+	padding: 0;
+	border: none;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	box-sizing: border-box;
+}
+body{
+	line-height: 1;
+	font-size: 16px;
+	font-family: "NotoSansCJKJP", "Helvetica Neue", "メイリオ", Meiryo, Helvetica, Arial, "游ゴシック", YuGothic, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+}
+iframe{
+	max-width: 100%;
+}
+img{
+	border: none;
+}
+.dummy{
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+body{
+	background: #29c5ff;
+	color: #262829;
+}
+.error-text{
+	padding: .5em 0;
+	background: #f21738;
+	color: #fff;
+	font-size: 2em;
+	font-weight: bold;
+	line-height: 1.5;
+	text-align: center;
+}
+.war-text{
+	color: #f21738;
+	font-weight: bold;
+}
+.c-red{
+	color: #f21738;
+}
+/* note Header */
+#head{
+
+}
+#head-inner{
+	max-width: 1040px;
+	margin: 0 auto;
+	padding: 2em;
+	color: #fff;
+}
+#title{
+	text-align: center;
+}
+.description{
+	margin: .5em 0;
+	text-align: center;
+}
+.tweet-btn{
+	position: relative;
+	height: 1.2em;
+}
+.tweet-btn-inner{
+	position: absolute;
+	display: block;
+	width: 100%;
+	top: 0;
+	left: 0;
+	text-align: center;
+}
+/* note Footer */
+#foot-inner{
+	max-width: 1040px;
+	margin: 0 auto;
+	padding: 1em;
+	color: #fff;
+}
+.copyright{
+	text-align: center;
+}
+/* note Center */
+#center-inner{
+	max-width: 1040px;
+	margin: 0 auto;
+}
+/* note Section */
+.converter-section,
+.about-section,
+.howtouse-section{
+	margin-bottom: 3em;
+	padding: 2em;
+	background: #fff;
+}
+.section-heading{
+	margin-bottom: 16px;
+	margin-bottom: 1rem;
+	padding: .3em;
+	background: #262829;
+	color: #fff;
+	font-size: 1.5;
+	font-weight: bold;
+	line-height: 1.5;
+	text-align: center;
+	text-transform: uppercase;
+}
+.section-body{
+	padding: 0 1em;
+	line-height: 1.8;
+}
+.section-body h2{
+	margin: 32px 0 16px 0;
+	margin: 2rem 0 1rem 0;
+	font-size: 1.3;
+	font-weight: bold;
+	line-height: 1.5;
+}
+.section-body img{
+	display: block;
+	max-width: 100%;
+	margin-bottom: 1em;
+}
+.section-body p{
+	margin-bottom: 1em;
+}
+.section-body p a{
+	color: #1184e8;
+}
+.section-body p a:hover{
+	color: #29c5ff;
+}
+.section-body p a:active{
+	color: #f21738;
+}
+/* note Converter Section */
+.converter-section{
+	background: #fff;
+}
+#file{
+	display: none;
+}
+.btn-area{
+	margin-bottom: 16px;
+	margin-bottom: 1rem;
+	font-size: 0;
+	text-align: center;
+}
+.select-btn,
+.save-btn{
+	display: inline-block;
+	margin: 0 8px;
+	margin: 0 .5rem;
+	padding: 1em 2em;
+	color: #fff;
+	border-width: 5px 5px 5px 5px;
+	border-style: solid;
+	font-size: 19.2px;
+	font-size: 1.2rem;
+	font-family: "NotoSansCJKJP", "Helvetica Neue", "メイリオ", Meiryo, Helvetica, Arial, "游ゴシック", YuGothic, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+	font-weight: bold;
+	line-height: 1;
+	text-decoration: none;
+	outline: none;
+	cursor: pointer;
+	transition: all 200ms;
+}
+.select-btn{
+	background: #29c5ff;
+	border-color: #29c5ff;
+}
+.select-btn:hover{
+	background: #fff;
+	color: #29c5ff;
+}
+.save-btn{
+	background: #7fdb30;
+	border-color: #7fdb30;
+}
+.save-btn:hover{
+	background: #fff;
+	color: #7fdb30;
+}
+.select-btn:active,
+.save-btn:active{
+	background: #fff;
+	color: #f21738;
+	border-color: #f21738;
+}
+.inactive,
+.inactive:hover,
+.inactive:active{
+	color: #fff;
+	background: #adadad;
+	border-color: #adadad;
+	cursor: not-allowed;
+}
+.result-area{
+	background: #262829;
+	margin-bottom: 1em;
+	padding: 3em;
+	text-align: center;
+}
+.result-area-inner{
+	font-size: 0;
+}
+.converter-canvas,
+.result-image{
+	display: inline-block;
+	max-width: 100%;
+	height: auto;
+	margin: 0 auto;
+	background: #1e2021;
+}
+
+
+
+
+
+
+@media screen and (max-width: 640px){
+	#center-inner{
+		padding: 0 1em;
+	}
+	.section-body{
+		padding: 0 .5em;
+	}
+	.converter-section,
+	.about-section,
+	.howtouse-section{
+		padding: 1em;
+	}
+	.select-btn,
+	.save-btn{
+		display: block;
+		width: 100%;
+		margin: 0;
+		text-align: center;
+	}
+	.result-area{
+		padding: 1em;
+	}
+}
+
+
+

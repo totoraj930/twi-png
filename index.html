@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<title>Twitter用PNG変換ツール - TwI PNG</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width">
+	<!-- Color -->
+	<meta name="theme-color" content="#000">
+	<!-- OGP -->
+	<meta property="og:locale" content="ja_JP">
+	<meta property="og:title" content="">
+	<meta property="og:site_name" content="">
+	<meta property="og:description" content="">
+	<meta property="og:type" content="site">
+	<!-- Facebook -->
+	<meta property="fb:admins" content="100006931666123">
+	<meta property="article:publisher" content="https://www.facebook.com/totoraj.net">
+	<!-- Other -->
+	<link rel="canonical" href=""><!-- url正規化 -->
+	<link rel="shortcut icon" href=""><!-- favicon -->
+	<link rel="alternate" type="application/rss+xml" href="feed.xml"><!-- rss -->
+	<link rel="apple-touch-icon" href=""><!-- icon -->
+	<!-- CSS -->
+	<link rel="stylesheet" href="css/main.css">
+	<!-- Script -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script type="text/javascript" src="item/main.js"></script>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+	<!--[if IE]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+<body>
+
+	<header id="head">
+		<div id="head-inner">
+			<h1 id="title">TwI PNG</h1>
+			<p class="description">
+				Twitter用PNG変換ツール
+			</p>
+			<p class="tweet-btn">
+				<span class="tweet-btn-inner">
+					<a href="https://twitter.com/share" class="twitter-share-button" data-via="totoraj930">Tweet</a>
+				</span>
+			</p>
+		</div>
+	</header>
+
+
+	<div id="center">
+		<div id="center-inner">
+			<section class="converter-section">
+				<h1 class="section-heading">Converter</h1>
+				<div class="section-body">
+					<div class="btn-area">
+						<input type="button" value="画像を選択" class="select-btn" id="select-btn">
+						<a href="javascript:void(0);" class="save-btn inactive" id="save-btn">画像を保存</a>
+					</div>
+					<input type="file" id="file">
+					<div class="result-area">
+						<div class="result-area-inner">
+							<img src="img/dummy.png" alt="ダミー" class="result-image" id="result-image">
+							<canvas class="converter-canvas" id="canvas" style="display: none;"></canvas>
+						</div>
+					</div>
+					<p class="war-text">
+						※ボタンで保存できないときは上の画像から保存してみてください<br>
+						※1500*1500px以上の画像はリサイズされます
+					</p>
+				</div>
+			</section>
+			<section class="about-section">
+				<h1 class="section-heading">About</h1>
+				<div class="section-body">
+					<h2>TwI PNGとは？</h2>
+					<p>
+						「TwI PNG」はTwitterにアップロードしたPNG画像がJPEG画像に変換されるのを防ぐための画像変換ツールです。
+					</p>
+					<h2>どうやってるの？</h2>
+					<p>
+						具体的な処理は画像の左上1pxを不透明度99%にしてPNG32(透過あり)の状態にするというものです。
+					</p>
+					<p>
+						HTML5のCanvasを使用していますので処理はブラウザ上で完結しています。<br>
+						サーバー負荷とかは一切ないのでいくらでも変換しちゃってください！
+					</p>
+					<h2 class="war-text">注意</h2>
+					<p class="war-text">
+						左上の1pxが(限りなく不透明に近い)半透明になります。
+					</p>
+					<p class="war-text">
+						PNG画像としてツイートできることを確認していますが保証はできませんのでご了承ください。
+					</p>
+					<p class="war-text">
+						大きすぎる画像を読み込むとブラウザが固まります。
+					</p>
+					<h2>つくったひと</h2>
+					<p>
+						Twitter: <a href="https://twitter.com/totoraj930">@totoraj930</a>
+					</p>
+				</div>
+			</section>
+			<section class="howtouse-section">
+				<h1 class="section-heading">How to use</h1>
+				<div class="section-body">
+					<h2><span>1</span>: Select</h2>
+					<p>変換したい画像を選択します</p>
+					<img src="img/howtouse01.png" alt="画像を選択しているところ">
+					<h2><span>2</span>: Save</h2>
+					<p>変換された画像を保存します</p>
+					<img src="img/howtouse02.png" alt="画像を保存しているところ">
+					<h2><span>3</span>: Tweet!</h2>
+					<p>あとは保存した画像をつぶやくだけです！</p>
+					<img src="img/howtouse03.png" alt="画像をツイートしているところ">
+				</div>
+			</section>
+		</div>
+	</div>
+
+
+	<footer id="foot">
+		<div id="foot-inner">
+			<p class="copyright">
+				&copy; 2016 totoraj. All rights reserved. This site was designed by totoraj.
+			</p>
+		</div>
+	</footer>
+
+</body>
+</html>
