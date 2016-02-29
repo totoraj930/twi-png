@@ -83,12 +83,12 @@ function runConvert(file){
 				_ctx = _canvas.getContext("2d");
 
 			if(_w > 1500){
-				var _p = 1000/_w;
+				var _p = 1500/_w;
 				_w = Math.floor(_w*_p);
 				_h = Math.floor(_h*_p);
 			}
 			if(_h > 1500){
-				var _p = 1000/_h;
+				var _p = 1500/_h;
 				_w = Math.floor(_w*_p);
 				_h = Math.floor(_h*_p);
 			}

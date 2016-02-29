@@ -127,6 +127,11 @@ body{
 	max-width: 100%;
 	margin-bottom: 1em;
 }
+.section-body ul,
+.section-body ol{
+	margin-bottom: 1em;
+	padding-left: 24px;
+}
 .section-body p{
 	margin-bottom: 1em;
 }
