@@ -6,6 +6,11 @@ var $parts = {
 	img: undefined
 }
 var file_name = "Image";
+var SAVE_MODE = 0;
+var LIMIT = {
+	use: false,
+	size: 2000
+}
 $(function(){
 	if (!isSupport()) {
 		$("<p>お使いのブラウザでは動作しません</p>").addClass("error-text").prependTo("body");
@@ -18,6 +23,8 @@ $(function(){
 	$parts.img = $("#result-image");
 	setEventListener();
 });
+// note setEventListener ()
+// イベントを登録
 function setEventListener () {
 	$parts.select_btn.on("click", function(){
 		selectFile();
@@ -30,44 +37,77 @@ function setEventListener () {
 				file_name.pop();
 			file_name.join("");
 			runConvert(_file);
-			$parts.save_btn.removeClass("inactive");
 		}
 		else{
 			alert("画像ファイルではありません");
 		}
 	});
 }
+// note selectFile ()
+// ファイル選択ダイアログを表示
 function selectFile () {
 	var _event = document.createEvent("MouseEvents");//Eventオブジェクトを追加
 	_event.initEvent("click",true,true,window,0,0,0,0,0,false,false,false,false,0,null);//イベントを設定
 	$parts.file[0].dispatchEvent(_event);//Elementにイベントを発生させる
 }
-function saveFile(){
-	var _a = document.createElement("a");
-	_a.href = $parts.canvas[0].toDataURL();
+// note saveFile ()
+// ファイル保存ダイアログを表示
+function saveFile () {
+	var _dataURL = $parts.canvas[0].toDataURL(),
+		_a = document.createElement("a");
+	// 保存モードに合わせて切り替え
+	if (SAVE_MODE == 0) {
+		var _blob = dataURLtoBlob(_dataURL);
+		_a.href = getBlobURL(_blob);
+	}
+	else if (SAVE_MODE == 1) {
+		_a.href = _dataURL;
+	}
 	_a.setAttribute("download", file_name+"_twi.png");
 	var _event = document.createEvent("MouseEvents");//Eventオブジェクトを追加
 	_event.initEvent("click",true,true,window,0,0,0,0,0,false,false,false,false,0,null);//イベントを設定
 	_a.dispatchEvent(_event);
 }
+// note getResultURL ()
+// 変換した画像のURLを返す
+function getResultURL () {
+	var _dataURL = $parts.canvas[0].toDataURL();
+	// 保存モードに合わせて切り替え
+	if (SAVE_MODE == 0) {
+		var _blob = dataURLtoBlob(_dataURL);
+		return getBlobURL(_blob);
+	}
+	else if (SAVE_MODE == 1) {
+		return _dataURL;
+	}
+}
+// note isSupport ()
+// ブラウザがサポートしていればtrue
 function isSupport () {
-	if (window.File && window.FileReader && window.FileList && window.Blob && !!window.CanvasRenderingContext2D)
+	if (!!window.File && !!window.FileReader && !!window.FileList && !!window.Blob && !!window.CanvasRenderingContext2D)
 		return true;
 	else
 		return false;
 }
+// note convertImageData (imageData)
+// ImageDataを修正して返す
 function convertImageData (imageData) {
 	if (imageData == undefined) return false;
 	if (imageData.data[3] > 252)
 		imageData.data[3] = 252;
 	return imageData;
 }
+// note isImageFile (file)
+// ファイルが画像ならtrue
 function isImageFile(file){
 	if (file.type.match(/image/))
 		return true;
 	else
 		return false;
 }
+
+// note runConvert (file)
+// 変換を開始する
 function runConvert(file){
 	var _reader = new FileReader();
 	var _image = new Image();
@@ -82,13 +122,13 @@ function runConvert(file){
 				_canvas = $parts.canvas[0],
 				_ctx = _canvas.getContext("2d");
 
-			if(_w > 1500){
-				var _p = 1500/_w;
+			if(LIMIT.use && _w > LIMIT.size){
+				var _p = LIMIT.size/_w;
 				_w = Math.floor(_w*_p);
 				_h = Math.floor(_h*_p);
 			}
-			if(_h > 1500){
-				var _p = 1500/_h;
+			if(LIMIT.use && _h > LIMIT.size){
+				var _p = LIMIT.size/_h;
 				_w = Math.floor(_w*_p);
 				_h = Math.floor(_h*_p);
 			}
@@ -97,12 +137,57 @@ function runConvert(file){
 			_ctx.drawImage(_image, 0, 0, _w, _h);
 			_ctx.putImageData(
 				convertImageData(_ctx.getImageData(0, 0, _w, _h)), 0, 0);
-			var _dataURL = _canvas.toDataURL();
-			$parts.save_btn[0].href = _dataURL;
-			$parts.img[0].src = _dataURL;
+			var _ResultURL = getResultURL();
+			$parts.save_btn[0].href = _ResultURL;
+			$parts.img[0].src = _ResultURL;
 			$parts.img[0].alt = file_name;
 			$parts.save_btn[0].setAttribute("download", file_name+"_twi.png");
+			$parts.save_btn.removeClass("inactive");
 		}
 		_image.src = _src;
 	}
 }
+
+// note dataURLtoBlob (dataURL)
+// dataURLをBlobにして返す
+// 参考: http://triplog.hatenablog.com/entry/2014/05/17/235900
+// 参考: http://stackoverflow.com/questions/12168909/blob-from-dataurl
+function dataURLtoBlob (dataURL) {
+	var _byteString = atob(dataURL.split(",")[1]),
+		_mimeString = dataURL.split(",")[0].split(":")[1].split(";")[0],
+		_ab = new ArrayBuffer(_byteString.length),
+		_ia = new Uint8Array(_ab);
+	for (var i=0; i < _byteString.length; i++) {
+		_ia[i] = _byteString.charCodeAt(i);
+	}
+
+	return new Blob([_ia], {type: _mimeString});
+}
+// note getBlobURL (blob)
+// BlobのURLを取得して返す
+function getBlobURL (blob) {
+	var _url = parent.URL || parent.webkitURL;
+	if (_url == undefined) return;
+	return _url.createObjectURL(blob);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
