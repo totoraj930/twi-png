@@ -70,8 +70,21 @@
 							<canvas class="converter-canvas" id="canvas" style="display: none;"></canvas>
 						</div>
 					</div>
+					<div class="mode-area">
+						<h2 class="mode-area-title">モード選択(仮)</h2>
+						<p class="mode-radio-wrap">
+							<input type="radio" name="mode-radio" class="mode-radio" id="mode-convert" checked>
+							<label for="mode-convert" class="mode-radio-label">変換する</label>
+						</p>
+						<p class="mode-radio-wrap">
+							<input type="radio" name="mode-radio" class="mode-radio" id="mode-reinstate">
+							<label for="mode-reinstate" class="mode-radio-label">透明度を戻す</label>
+						</p>
+						<p style="font-size: 14px;"><a href="#about-mode">モード選択(仮)とは？</a></p>
+					</div>
 					<h2>おしらせ</h2>
 					<p class="war-text">
+						※モード選択は画像を選択する前に行ってください<br>
 						※ボタンで保存できないときは上の画像から保存してみてください<br>
 						※大きすぎる画像を読み込むとブラウザが固まることがあります(2000*2000pxまでをおすすめします)<br>
 						※確実にPNG画像としてアップロードできるとは保証できません<br>
@@ -110,6 +123,21 @@
 						HTML5のCanvasを使用していますので処理はブラウザ上で完結しています。<br>
 						サーバー負荷とかは一切ないのでいくらでも変換しちゃってください！
 					</p>
+
+					<h2 id="about-mode">モード選択(仮)について</h2>
+					<p>
+						「透明度を戻す」にチェックを入れてTwI PNGで変換した画像を選択すると左上1pxの不透明度を100%に変換するようになります。
+					</p>
+					<p>
+						変換した画像の不透明度を元に戻したいときにお使いください。
+					</p>
+					<p>
+						モード選択は画像を選択する前に行ってください。
+					</p>
+					<p>
+						TwI PNGで変換した画像以外ではまったく意味がないのでご注意ください。
+					</p>
+
 					<h2 class="war-text">注意</h2>
 					<p class="war-text">
 						左上の1pxが(限りなく不透明に近い)半透明になります。
@@ -120,8 +148,10 @@
 					<p class="war-text">
 						大きすぎる画像を読み込むとブラウザが固まります。
 					</p>
+
 					<h2>更新履歴</h2>
 					<ul>
+						<li>2016/03/03: ver.1.2.0 モード選択(仮)を追加</li>
 						<li>2016/03/01: ver.1.1.0 保存方式を変更, リサイズを廃止, 安定性向上</li>
 						<li>2016/02/28: ver.1.0.0 リリース</li>
 					</ul>
@@ -145,6 +175,7 @@
 					<img src="img/howtouse03.png" alt="画像をツイートしているところ">
 				</div>
 			</section>
+			section.converter
 		</div>
 	</div>
 

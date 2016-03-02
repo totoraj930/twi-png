@@ -151,7 +151,8 @@ body{
 #file{
 	display: none;
 }
-.btn-area{
+.btn-area,
+.mode-area{
 	margin-bottom: 16px;
 	margin-bottom: 1rem;
 	font-size: 0;
@@ -205,6 +206,54 @@ body{
 	background: #adadad;
 	border-color: #adadad;
 	cursor: not-allowed;
+}
+h2.mode-area-title{
+	margin: 0 0;
+	font-size: 17.6px;
+	font-size: 1.1rem;
+}
+p.mode-radio-wrap{
+	display: inline-block;
+	margin: 0 .5em;
+	font-size: 16px;
+	font-size: 1rem;
+}
+.mode-radio{
+	display: none;
+}
+.mode-radio-label{
+	position: relative;
+	display: block;
+	background: #fff;
+	padding: .5em .5em .5em 30px;
+	cursor: pointer;
+	transition: all 200ms;
+}
+.mode-radio-label:hover{
+	background: #29c5ff;
+	color: #fff;
+}
+.mode-radio-label:before,
+.mode-radio-label:after{
+	content: "";
+	position: absolute;
+	display: block;
+	top: 50%;
+}
+.mode-radio-label:before{
+	width: 16px;
+	height: 16px;
+	left: 5px;
+	margin-top: -10px;
+	background: #fff;
+	border: 2px solid #29c5ff;
+}
+.mode-radio:checked + .mode-radio-label:after{
+	width: 10px;
+	height: 10px;
+	left: 10px;
+	margin-top: -5px;
+	background: #f21738;
 }
 .result-area{
 	background: #262829;
