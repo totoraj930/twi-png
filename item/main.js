@@ -186,10 +186,36 @@ function runConvert(file){
 			$parts.img[0].alt = FILE_NAME;
 			$parts.save_btn[0].setAttribute("download", FILE_NAME+"_twi_"+getConverterMode()+".png");
 			$parts.save_btn.removeClass("inactive");
+			setTimeout(function () {
+				showNotice("変換が完了しました", 2*1000);
+			}, 300);
+
 		}
 		_image.src = _src;
 	}
 }
+
+// note showNotice (text, show_time)
+// 通知を表示する(string, ms)
+function showNotice (text, show_time) {
+	var _$temp = $("<div class=\"notice\">"+text+"</div>");
+	_$temp.appendTo($("body")).hide().fadeIn(200, function () {
+		setTimeout(function () {
+			_$temp.fadeOut(200, function () {
+				_$temp.remove();
+			});
+		}, show_time);
+	});
+}
+
+
+
+
+
+
+
+
+
 
 
 

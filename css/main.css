@@ -274,7 +274,19 @@ p.mode-radio-wrap{
 }
 
 
-
+.notice{
+	position: fixed;
+	display: block;
+	top: 1em;
+	left: 5%;
+	width: 90%;
+	padding: 1em;
+	background: rgba(242, 23, 56, 0.9);
+	color: #fff;
+	font-size: 1.1em;
+	font-weight: bold;
+	text-align: center;
+}
 
 
 
