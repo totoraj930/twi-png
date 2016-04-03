@@ -64,11 +64,11 @@ body{
 	margin: .5em 0;
 	text-align: center;
 }
-.tweet-btn{
+.social-btn{
 	position: relative;
 	height: 1.2em;
 }
-.tweet-btn-inner{
+.social-btn-inner{
 	position: absolute;
 	display: block;
 	width: 100%;
