@@ -14,7 +14,7 @@ var LIMIT = {
 }
 $(function(){
 	if (!isSupport()) {
-		$("<p>お使いのブラウザでは動作しません</p>").addClass("error-text").prependTo("body");
+		$("<p>お使いのブラウザでは動作しません<br>申し訳ありませんが別のブラウザをお試しください<br><a href=\"#h-browser\">動画確認ブラウザ一覧</a></p>").addClass("error-text").prependTo("body");
 		return;
 	}
 	$parts.file = $("#file");
