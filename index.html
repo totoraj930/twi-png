@@ -70,10 +70,15 @@
 						<a href="javascript:void(0);" class="save-btn inactive" id="save-btn">画像を保存</a>
 					</div>
 					<input type="file" id="file">
-					<div class="result-area">
+					<div class="result-area" id="drop-area">
 						<div class="result-area-inner">
 							<img src="img/dummy.png" alt="ダミー" class="result-image" id="result-image">
 							<canvas class="converter-canvas" id="canvas" style="display: none;"></canvas>
+						</div>
+						<div id="drop-msg">
+							<div id="drop-msg-inner">
+								<p>画像ファイルをドロップして選択</p>
+							</div>
 						</div>
 					</div>
 					<div class="mode-area">

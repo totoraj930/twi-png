@@ -1,4 +1,5 @@
 var $parts = {
+	converter: undefined,
 	file: undefined,
 	select_btn: undefined,
 	save_btn: undefined,
@@ -12,11 +13,14 @@ var LIMIT = {
 	use: false,
 	size: 2000
 }
-$(function(){
+var DRAG_TIMEOUT;
+$(function () {
 	if (!isSupport()) {
-		$("<p>お使いのブラウザでは動作しません<br>申し訳ありませんが別のブラウザをお試しください<br><a href=\"#h-browser\">動画確認ブラウザ一覧</a></p>").addClass("error-text").prependTo("body");
+		$("<p>お使いのブラウザでは動作しません<br>申し訳ありませんが別のブラウザをお試しください<br><a href=\"#h-browser\">動作確認ブラウザ一覧</a></p>").addClass("error-text").prependTo("body");
 		return;
 	}
+	$parts.drop_area = $("#drop-area");
+	$parts.drop_msg = $("#drop-msg");
 	$parts.file = $("#file");
 	$parts.select_btn = $("#select-btn");
 	$parts.save_btn = $("#save-btn");
@@ -29,12 +33,45 @@ $(function(){
 // note setEventListener ()
 // イベントを登録
 function setEventListener () {
-	$parts.select_btn.on("click", function(){
+	$parts.select_btn.on("click", function () {
 		$parts.file.val("");
 		selectFile();
 	});
-	$parts.file.on("change", function(){
+	$parts.file.on("change", function () {
 		var _file = $parts.file[0].files[0];
+		if (isImageFile(_file)) {
+			FILE_NAME = _file.name.split(".");
+			if (FILE_NAME.length > 1)
+				FILE_NAME.pop();
+			FILE_NAME.join("");
+			runConvert(_file);
+		}
+		else{
+			alert("画像ファイルではありません");
+		}
+	});
+	$parts.drop_area.on("dragover", function (event) {
+		if (event.originalEvent.dataTransfer.types[0] !== "Files") {
+			return;
+		}
+		event.stopPropagation();
+		event.preventDefault();
+		event.originalEvent.dataTransfer.dropEffect = "copy";
+		$parts.drop_msg.show();
+		clearTimeout(DRAG_TIMEOUT);
+		DRAG_TIMEOUT = setTimeout(function () {
+			$parts.drop_msg.hide();
+		}, 200);
+	});
+	$parts.drop_area.on("drop", function (event) {
+		if (event.originalEvent.dataTransfer.types[0] !== "Files") {
+			return;
+		}
+		event.stopPropagation();
+		event.preventDefault();
+		clearTimeout(DRAG_TIMEOUT);
+		$parts.drop_msg.hide();
+		var _file = event.originalEvent.dataTransfer.files[0];
 		if (isImageFile(_file)) {
 			FILE_NAME = _file.name.split(".");
 			if (FILE_NAME.length > 1)
@@ -159,7 +196,7 @@ function runConvert(file){
 
 	_reader.onload = function(e){//readerがロードしたら
 		_src = _reader.result;//dataURLを取得
-		_image.onload = function(){
+		_image.onload = function () {
 			var _w = _image.width,
 				_h = _image.height,
 				_canvas = $parts.canvas[0],
