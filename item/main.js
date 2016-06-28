@@ -83,6 +83,46 @@ function setEventListener () {
 			alert("画像ファイルではありません");
 		}
 	});
+
+	$parts.drop_area.on("keydown", function (event) {
+		if(event.metaKey || event.ctrlKey) {
+			if (event.keyCode == 86)
+				return;
+		}
+		event.stopPropagation();
+		event.preventDefault();
+	});
+	$parts.drop_area.on("paste", function (event) {
+
+		event.stopPropagation();
+		event.preventDefault();
+
+		// items/filesに格納されているデータからfileを取り出す
+		var _file  = null;
+		var _cpdata = ( window.clipboardData || event.originalEvent.clipboardData );
+		if(_cpdata.items) {
+			var _items = _cpdata.items;
+			if(_items != null && _items[0] != null) {
+				_file = _items[0].getAsFile();
+			}
+		} else if (_cpdata.files) {
+			var _files = _cpdata.files;
+			if (_files != null && _files[0] != null) {
+				_file = _files[0];
+			}
+		}
+
+		if(_file != null) {
+			if (isImageFile(_file)) {
+				FILE_NAME = getDateString();
+				runConvert(_file);
+			} else{
+				alert("画像ファイルではありません");
+			}
+		} else {
+			alert("貼り付けに失敗しました");
+		}
+	});
 }
 // note selectFile ()
 // ファイル選択ダイアログを表示
@@ -245,6 +285,19 @@ function showNotice (text, show_time) {
 	});
 }
 
+// note getDateString ()
+// 現在の日付、時刻を取得して返す
+function getDateString() {
+	var _n   = new Date();
+	var _s   = _n.getFullYear();
+	_s += ("0" + (_n.getMonth() + 1)).slice(-2);
+	_s += ("0" + _n.getDate()).slice(-2);
+	_s += "_";
+	_s += ("0" + _n.getHours()).slice(-2);
+	_s += ("0" + _n.getMinutes()).slice(-2);
+	_s += ("0" + _n.getSeconds()).slice(-2);
+	return _s;
+}
 
 
 
