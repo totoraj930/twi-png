@@ -109,7 +109,7 @@ function setEventListener () {
 		var _cpdata = ( window.clipboardData || event.originalEvent.clipboardData );
 
 		if (_cpdata.types != "Files") {
-			alert("画像ファイルを貼り付けてください");
+			alert("画像を貼り付けてください");
 			return;
 		}
 
@@ -130,10 +130,10 @@ function setEventListener () {
 				FILE_NAME = getDateString();
 				runConvert(_file);
 			} else{
-				alert("画像ファイルではありません");
+				alert("画像ではありません");
 			}
 		} else {
-			alert("ファイルが存在しません");
+			alert("貼り付けに失敗しました");
 		}
 	});
 
@@ -152,7 +152,7 @@ function setEventListener () {
 		var _cpdata = ( window.clipboardData || event.originalEvent.clipboardData );
 
 		if (_cpdata.types != "Files") {
-			alert("画像ファイルを貼り付けてください");
+			alert("画像を貼り付けてください");
 			return;
 		}
 
@@ -173,10 +173,10 @@ function setEventListener () {
 				FILE_NAME = getDateString();
 				runConvert(_file);
 			} else{
-				alert("画像ファイルではありません");
+				alert("画像ではありません");
 			}
 		} else {
-			alert("ファイルが存在しません");
+			alert("貼り付けに失敗しました");
 		}
 	});
 }
