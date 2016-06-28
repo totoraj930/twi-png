@@ -13,21 +13,22 @@ var LIMIT = {
 	use: false,
 	size: 2000
 }
+var UA = window.navigator.userAgent.toLowerCase();
 var DRAG_TIMEOUT;
 $(function () {
 	if (!isSupport()) {
 		$("<p>お使いのブラウザでは動作しません<br>申し訳ありませんが別のブラウザをお試しください<br><a href=\"#h-browser\">動作確認ブラウザ一覧</a></p>").addClass("error-text").prependTo("body");
 		return;
 	}
-	$parts.drop_area = $("#drop-area");
-	$parts.drop_msg = $("#drop-msg");
+	$parts.drop_area = $("#drop_area");
+	$parts.drop_msg = $("#drop_msg");
 	$parts.file = $("#file");
-	$parts.select_btn = $("#select-btn");
-	$parts.save_btn = $("#save-btn");
+	$parts.select_btn = $("#select_btn");
+	$parts.save_btn = $("#save_btn");
 	$parts.canvas = $("#canvas");
-	$parts.img = $("#result-image");
-	$parts.radio[0] = $("#mode-convert");
-	$parts.radio[1] = $("#mode-reinstate");
+	$parts.img = $("#result_image");
+	$parts.radio[0] = $("#mode_convert");
+	$parts.radio[1] = $("#mode_reinstate");
 	setEventListener();
 });
 // note setEventListener ()
@@ -92,10 +93,53 @@ function setEventListener () {
 		event.stopPropagation();
 		event.preventDefault();
 	});
+
 	$parts.drop_area.on("paste", function (event) {
 
 		event.stopPropagation();
 		event.preventDefault();
+
+		// FireFoxの場合はなにもしない
+		if (UA.indexOf("firefox") != -1) {
+			return;
+		}
+
+		// items/filesに格納されているデータからfileを取り出す
+		var _file  = null;
+		var _cpdata = ( window.clipboardData || event.originalEvent.clipboardData );
+		if(_cpdata.items) {
+			var _items = _cpdata.items;
+			if(_items != null && _items[0] != null) {
+				_file = _items[0].getAsFile();
+			}
+		} else if (_cpdata.files) {
+			var _files = _cpdata.files;
+			if (_files != null && _files[0] != null) {
+				_file = _files[0];
+			}
+		}
+
+		if(_file != null) {
+			if (isImageFile(_file)) {
+				FILE_NAME = getDateString();
+				runConvert(_file);
+			} else{
+				alert("画像ファイルではありません");
+			}
+		} else {
+			alert("貼り付けに失敗しました");
+		}
+	});
+
+	$(document).on("paste", function (event) {
+
+		event.stopPropagation();
+		event.preventDefault();
+
+		// FireFoxの場合はなにもしない
+		if (UA.indexOf("firefox") != -1) {
+			return;
+		}
 
 		// items/filesに格納されているデータからfileを取り出す
 		var _file  = null;
