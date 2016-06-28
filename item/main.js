@@ -107,6 +107,12 @@ function setEventListener () {
 		// items/filesに格納されているデータからfileを取り出す
 		var _file  = null;
 		var _cpdata = ( window.clipboardData || event.originalEvent.clipboardData );
+
+		if (_cpdata.types != "Files") {
+			alert("画像ファイルを貼り付けてください");
+			return;
+		}
+
 		if(_cpdata.items) {
 			var _items = _cpdata.items;
 			if(_items != null && _items[0] != null) {
@@ -127,7 +133,7 @@ function setEventListener () {
 				alert("画像ファイルではありません");
 			}
 		} else {
-			alert("貼り付けに失敗しました");
+			alert("ファイルが存在しません");
 		}
 	});
 
@@ -144,6 +150,12 @@ function setEventListener () {
 		// items/filesに格納されているデータからfileを取り出す
 		var _file  = null;
 		var _cpdata = ( window.clipboardData || event.originalEvent.clipboardData );
+
+		if (_cpdata.types != "Files") {
+			alert("画像ファイルを貼り付けてください");
+			return;
+		}
+
 		if(_cpdata.items) {
 			var _items = _cpdata.items;
 			if(_items != null && _items[0] != null) {
@@ -164,7 +176,7 @@ function setEventListener () {
 				alert("画像ファイルではありません");
 			}
 		} else {
-			alert("貼り付けに失敗しました");
+			alert("ファイルが存在しません");
 		}
 	});
 }
