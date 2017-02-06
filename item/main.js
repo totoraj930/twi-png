@@ -47,9 +47,6 @@ function setEventListener () {
 			FILE_NAME.join("");
 			runConvert(_file);
 		}
-		else{
-			alert("画像ファイルではありません");
-		}
 	});
 	$parts.drop_area.on("dragover", function (event) {
 		if (event.originalEvent.dataTransfer.types[0] !== "Files") {
@@ -79,9 +76,6 @@ function setEventListener () {
 				FILE_NAME.pop();
 			FILE_NAME.join("");
 			runConvert(_file);
-		}
-		else{
-			alert("画像ファイルではありません");
 		}
 	});
 
@@ -129,8 +123,6 @@ function setEventListener () {
 			if (isImageFile(_file)) {
 				FILE_NAME = getDateString();
 				runConvert(_file);
-			} else{
-				alert("画像ではありません");
 			}
 		} else {
 			alert("貼り付けに失敗しました");
@@ -172,8 +164,6 @@ function setEventListener () {
 			if (isImageFile(_file)) {
 				FILE_NAME = getDateString();
 				runConvert(_file);
-			} else{
-				alert("画像ではありません");
 			}
 		} else {
 			alert("貼り付けに失敗しました");
@@ -187,24 +177,6 @@ function selectFile () {
 	_event.initEvent("click",true,true,window,0,0,0,0,0,false,false,false,false,0,null);//イベントを設定
 	$parts.file[0].dispatchEvent(_event);//Elementにイベントを発生させる
 }
-// note saveFile ()
-// ファイル保存ダイアログを表示
-function saveFile () {
-	var _dataURL = $parts.canvas[0].toDataURL(),
-		_a = document.createElement("a");
-	// 保存モードに合わせて切り替え
-	if (SAVE_MODE == 0) {
-		var _blob = dataURLtoBlob(_dataURL);
-		_a.href = getBlobURL(_blob);
-	}
-	else if (SAVE_MODE == 1) {
-		_a.href = _dataURL;
-	}
-	_a.setAttribute("download", FILE_NAME+"_twi.png");
-	var _event = document.createEvent("MouseEvents");//Eventオブジェクトを追加
-	_event.initEvent("click",true,true,window,0,0,0,0,0,false,false,false,false,0,null);//イベントを設定
-	_a.dispatchEvent(_event);
-}
 // note isSupport ()
 // ブラウザがサポートしていればtrue
 function isSupport () {
@@ -213,13 +185,21 @@ function isSupport () {
 	else
 		return false;
 }
+
 // note isImageFile (file)
 // ファイルが画像ならtrue
 function isImageFile(file){
-	if (file.type.match(/image/))
+	if (file.type.match(/image/)) {
+		if (!file.type.match(/png/)) {
+			var msg = "PNG形式以外の画像です。\n処理を続けますか？";
+			return(confirm(msg));
+		}
 		return true;
-	else
+	} else {
+		var msg = "画像ファイルではありません。";
+		alert(msg);
 		return false;
+	}
 }
 // note getConverterMode ()
 // 変換するか戻すかを取得して返す(0: 変換, 1: 戻す)
@@ -238,6 +218,9 @@ function getResultURL () {
 	// 保存モードに合わせて切り替え
 	if (SAVE_MODE == 0) {
 		var _blob = dataURLtoBlob(_dataURL);
+		if (_blob.size > 3 * 1024 * 1024) {
+			alert("ファイルサイズが3MBを超えました。\nJPEGに圧縮される恐れがあります。("+Math.round(_blob.size/(1024*1024)*100)/100+"MB)" );
+		}
 		return getBlobURL(_blob);
 	}
 	else if (SAVE_MODE == 1) {
