@@ -190,10 +190,10 @@ function isSupport () {
 // ファイルが画像ならtrue
 function isImageFile(file){
 	if (file.type.match(/image/)) {
-		if (!file.type.match(/png/)) {
-			var msg = "PNG形式以外の画像です。\n処理を続けますか？";
-			return(confirm(msg));
-		}
+//		if (!file.type.match(/png/)) {
+//			var msg = "PNG形式以外の画像です。\n処理を続けますか？";
+//			return(confirm(msg));
+//		}
 		return true;
 	} else {
 		var msg = "画像ファイルではありません。";
