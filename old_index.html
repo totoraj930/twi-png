@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<title>TwI PNG - 跡地</title>
+	<meta charset="UTF-8">
+	<!-- Color -->
+	<meta name="theme-color" content="#000">
+	<!-- Other -->
+	<link rel="canonical" href="https://totoraj930.github.io/twi-png/"><!-- url正規化 -->
+	<link rel="shortcut icon" href="img/icon/favicon.ico"><!-- favicon -->
+	<link rel="apple-touch-icon" href="img/icon/apple-touch-icon-180x180.png"><!-- icon -->
+	<!-- CSS -->
+	<link rel="stylesheet" href="css/main.css">
+	<!-- Script -->
+	<script>
+		if (location.protocol == "http:") location.replace(location.href.replace(/http:/, "https:"));
+	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script type="text/javascript" src="item/main.js?v=1.4.1-20170207"></script>
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		ga('create', 'UA-51200053-3', 'auto');
+		ga('send', 'pageview');
+	</script>
+</head>
+<body>
+	<header id="head">
+		<div id="head-inner">
+			<h1 id="title">TwI PNG (跡地)</h1>
+			<p class="description">
+                Twitter用PNG変換ツール(ver.1.4.1)<br>
+            </p>
+            <p class="description">
+                <b>2019/02/11 - Twitterの仕様変更により使えなくなりました。</b>詳しくは<a href="./index.html">こちら</a>
+            </p>
+		</div>
+	</header>
+
+	<div id="center">
+		<div id="center-inner">
+			<section class="converter-section">
+				<h1 class="section-heading">Converter</h1>
+				<div class="section-body">
+					<div class="btn-area">
+						<input type="button" value="画像を選択" class="select-btn" id="select_btn">
+						<a href="javascript:void(0);" class="save-btn inactive" id="save_btn">画像を保存</a>
+					</div>
+					<input type="file" id="file">
+					<div class="result-area" id="drop_area" contenteditable>
+						<div class="result-area-inner">
+							<img src="img/dummy.png" alt="ダミー" class="result-image" id="result_image">
+							<canvas class="converter-canvas" id="canvas" style="display: none;"></canvas>
+						</div>
+						<div class="drop-msg" id="drop_msg">
+							<div class="drop-msg-inner">
+								<p>画像ファイルをドロップして選択</p>
+							</div>
+						</div>
+					</div>
+					<div class="mode-area">
+						<h2 class="mode-area-title">モード選択(仮)</h2>
+						<p class="mode-radio-wrap">
+							<input type="radio" name="mode-radio" class="mode-radio" id="mode_convert" checked>
+							<label for="mode_convert" class="mode-radio-label">変換する</label>
+						</p>
+						<p class="mode-radio-wrap">
+							<input type="radio" name="mode-radio" class="mode-radio" id="mode_reinstate">
+							<label for="mode_reinstate" class="mode-radio-label">透明度を戻す</label>
+						</p>
+						<p style="font-size: 14px;"><a href="#about-mode">モード選択(仮)とは？</a></p>
+					</div>
+					<h2>おしらせ</h2>
+					<p>
+						<span class="war-text">2019/02/11 - Twitterの仕様変更により使えなくなりました。</span><br>
+						※モード選択は画像を選択する前に行ってください。<br>
+						※ボタンで保存できないときは上の画像から保存してみてください。<br>
+						※大きすぎる画像を読み込むとブラウザが固まることがあります。(2000*2000pxまでをおすすめします)<br>
+						<span class="war-text">※確実にPNG画像としてアップロードできるとは保証できません。</span><br>
+						※<a href="#about">ABOUT</a>にて仕様を確認してください。
+					</p>
+					<h2 class="war-text">PNGで投稿できないクライアント</h2>
+					<ul class="war-text">
+						<li>Twitter for iPhone(公式iPhone版)</li>
+						<li>Twitter for Android(公式Android版)</li>
+					</ul>
+					<p class="war-text">
+						スマホのクライアントからつぶやくとJPEGになってしまうかもしれません。
+					</p>
+					<h2>PNGで投稿に成功したクライアント</h2>
+					<ul>
+						<li>Twitter Web Client(公式PC版Web)</li>
+						<li>TweetDeck(PC版)</li>
+					</ul>
+					<h2 id="h-browser">動作確認ブラウザ</h2>
+					<ul>
+						<li>Google Chrome (PC版 ver.50)</li>
+						<li>Google Chrome (Android版 ver.49)</li>
+						<li>Firefox (PC版 ver.46)</li>
+						<li>Edge</li>
+						<li>IE11</li>
+					</ul>
+				</div>
+			</section>
+			<section class="about-section">
+				<h1 class="section-heading" id="about">About</h1>
+				<div class="section-body">
+					<h2>TwI PNGとは？</h2>
+					<p>
+						「TwI PNG」はTwitterにアップロードしたPNG画像がJPEG画像に変換されるのを防ぐための画像変換ツールです。
+					</p>
+					<h2>どうやってるの？</h2>
+					<p>
+						具体的な処理は画像の左上1pxを不透明度99%にしてPNG32(透過あり)の状態にするというものです。
+					</p>
+					<p>
+						HTML5のCanvasを使用していますので処理はブラウザ上で完結しています。<br>
+						サーバー負荷とかは一切ないのでいくらでも変換しちゃってください！
+					</p>
+
+					<h2 id="about-mode">モード選択(仮)について</h2>
+					<p>
+						「透明度を戻す」にチェックを入れてTwI PNGで変換した画像を選択すると左上1pxの不透明度を100%に変換するようになります。
+					</p>
+					<p>
+						変換した画像の不透明度を元に戻したいときにお使いください。
+					</p>
+					<p>
+						モード選択は画像を選択する前に行ってください。
+					</p>
+					<p>
+						TwI PNGで変換した画像以外ではまったく意味がないのでご注意ください。
+					</p>
+
+					<h2 class="war-text">注意</h2>
+					<p class="war-text">
+						左上の1pxが(限りなく不透明に近い)半透明になります。
+					</p>
+					<p class="war-text">
+						PNG画像としてツイートできることを確認していますが保証はできませんのでご了承ください。
+					</p>
+					<p class="war-text">
+						大きすぎる画像を読み込むとブラウザが固まります。
+					</p>
+					<p class="war-text">
+						いつTwitterの仕様変更で使えなくなるかわかりません！ご注意ください！
+					</p>
+					<h2>更新履歴</h2>
+					<ul>
+						<li>2017/02/07: ver.1.4.1 警告文を追加</li>
+						<li>2016/06/28: ver.1.4.0 ファイルを貼り付けで選択する機能の追加</li>
+						<li>2016/04/27: ver.1.3.0 ファイルをドロップで選択する機能の追加</li>
+						<li>2016/03/05: ver.1.2.1 通知表示を追加</li>
+						<li>2016/03/03: ver.1.2.0 モード選択(仮)を追加</li>
+						<li>2016/03/01: ver.1.1.0 保存方式を変更, リサイズを廃止, 安定性向上</li>
+						<li>2016/02/28: ver.1.0.0 リリース</li>
+					</ul>
+					<h2>つくったひと</h2>
+					<p>
+						Twitter: <a href="https://twitter.com/totoraj930">@totoraj930</a>
+					</p>
+					<h2>スペシャルサンクス</h2>
+					<p>
+						<a href="https://twitter.com/stkchp">腐水(stkchp)</a>さん<br>
+						ファイルを貼り付けで選択する機能を作っていただきました。ありがとうございます！
+					</p>
+				</div>
+			</section>
+			<section class="howtouse-section">
+				<h1 class="section-heading">How to use</h1>
+				<div class="section-body">
+					<h2><span>1</span>: Select</h2>
+					<p>変換したい画像を選択します。</p>
+					<img src="img/howtouse01.png" alt="画像を選択しているところ">
+					<h2><span>2</span>: Save</h2>
+					<p>変換された画像を保存します。</p>
+					<img src="img/howtouse02.png" alt="画像を保存しているところ">
+					<h2><span>3</span>: Tweet!</h2>
+					<p>あとは保存した画像をつぶやくだけです！</p>
+					<img src="img/howtouse03.png" alt="画像をツイートしているところ">
+				</div>
+			</section>
+		</div>
+	</div>
+
+
+	<footer id="foot">
+		<div id="foot-inner">
+			<p class="copyright">
+				&copy; 2016 totoraj. All rights reserved. This site was designed by totoraj.
+			</p>
+		</div>
+	</footer>
+</body>
+</html>
